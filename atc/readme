@@ -1,0 +1,35 @@
+Nerves of Steel
+
+[Keys]
+F1: Turn left
+F2: Turn right
+F3: Alt-
+F4: Alt+
+F5: Speed-
+F6: Speed+
+Arrows: Select plane
+
+
+[Rules]
+All planes must reach their destination without leaving the airspace.
+
+All planes must stay 1000ft and 3mi away from each other.
+
+Exiting planes must leave airspace at more than 5000ft.
+
+Landing planes must fly into airport's airspace at less than 200mph and 1000ft. Airport ATC will take over at that point.
+
+There is no winning state, just try to outlast your previous attempt.
+
+
+[Interface]
+
+The radar is located on the left of the screen. It updates every second. The selected plane is shown in white. A line is draw between each plane and its destination.
+
+The data panel is on the right side of the screen. Notice that the top heading, alt, and speed values are the command values. The bottom ones are the actual values.
+
+
+
+[Credits]
+flyingfisch
+TakeFlight Prod.

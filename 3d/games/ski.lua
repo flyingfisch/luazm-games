@@ -1,0 +1,117 @@
+-- base functions
+local clear = zmg.clear
+local drawCircle = zmg.drawCircle
+local drawLine = zmg.drawLine
+local drawPoint = zmg.drawPoint
+local drawRectFill = zmg.drawRectFill
+local drawText = zmg.drawText
+local fastCopy = zmg.fastCopy
+local keyMenuFast = zmg.keyMenuFast
+local keyDirectPoll = zmg.keyDirectPoll
+local keyDirect = zmg.keyDirect
+local makeColor = zmg.makeColor
+local floor = math.floor
+local sin = math.sin
+local cos = math.cos
+local pi = math.pi
+
+-- screen vars
+local SCREEN_WIDTH = 384
+local SCREEN_HEIGHT = 216
+
+-- major vars
+local key = {f1=79,f2=69,f3=59,f4=49,f5=39,f6=29,alpha=77,exit=47, 
+optn=68,up=28,down=37,left=38,right=27,exe=31,shift=78,n1=72,n2=62,n3=52,
+n4=73,n5=63,n6=53,n7=74,n8=64,n9=54}
+local color = {bg=makeColor("white"), fg=makeColor("gray")}
+local exit=0
+
+-- game vars
+local obstacles = {1,0,1,0,0,1}
+local frame = 1
+
+-- 3d vars
+local mv = {x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2, z=50} 
+local piv = {x=0, y=0, z=0}
+local ang = {x=45, y=0, z=0}
+local roffset = {x=0, y=0, z=0}
+local cam = {x=0, y=0, z=300}
+local coords = {{}}
+local x = 0
+local y = 0
+local scale = 1
+local pmode = 1
+
+-- 3d arrays
+local size = 50
+local red = makeColor("red")
+local blue = makeColor("blue")
+local triangle = {x,y,z,lines}
+triangle.x = {size,0,-size,0,0}
+triangle.y = {0,-size,0,size,0}
+triangle.z = {0,0,0,0,size}
+triangle.lines = {{1,2},{2,3},{3,4},{4,1},{1,5},{2,5},{3,5},{4,5}}
+triangle.colors = {red,red,red,red,blue,blue,blue,blue}
+
+-- 3D ENGINE START
+local function d2r(angle)
+	return angle*(pi/180)
+end
+
+local function return3dPoint(point, angle, move, cam, scale, piv, pmode)
+	xd = point.x-piv.x
+	yd = point.y-piv.y
+	zd = point.z-piv.z
+	
+	zx = xd*cos(d2r(angle.z)) - yd*sin(d2r(angle.z)) - xd
+	zy = xd*sin(d2r(angle.z)) + yd*cos(d2r(angle.z)) - yd
+	
+	yx = (xd+zx)*cos(d2r(angle.y)) - zd*sin(d2r(angle.y)) - (xd+zx)
+	yz = (yd+zy)*sin(d2r(angle.y)) + zd*cos(d2r(angle.y)) - zd
+	
+	xy = (yd+zy)*cos(d2r(angle.x)) - (zd+yz)*sin(d2r(angle.x)) - (yd+zy)
+	xz = (yd+zy)*sin(d2r(angle.x)) + (zd+yz)*cos(d2r(angle.x)) - (zd+yz)
+	
+	offset = {}
+	
+	offset.x = yx+zx
+	offset.y = zy+xy
+	offset.z = xz+yz
+	
+	if pmode==0 then
+		x = (point.x + offset.x + cam.x) / scale + move.x
+		y = (point.y + offset.y + cam.y) / scale + move.y
+	else
+		z = (point.z + offset.z + cam.z)
+		x = (point.x + offset.x + cam.x) / z / scale + move.x
+		y = (point.y + offset.y + cam.y) / z / scale + move.y
+	end
+	
+	return {x,y}
+end
+
+local function drawWireframe(pointData,lineData,colorData)
+	for i=1, #lineData, 1 do
+		if colorData[i] then Color=colorData[i] else Color=0x0000 end
+		drawLine(pointData[lineData[i][1]][1],pointData[lineData[i][1]][2],pointData[lineData[i][2]][1],pointData[lineData[i][2]][2],Color)
+	end
+end
+-- 3D ENGINE END
+
+while exit~=1 do
+	keyDirectPoll()
+	clear()
+	
+	for j=1, #obstacles, 1 do
+		for i=1, #triangle.x, 1 do
+			coords[j][i] = return3dPoint({x=triangle.x[i]+(j*50),y=triangle.y[i]-frame,z=triangle.z[i]},ang,mv,cam,scale,piv,pmode)
+		end
+	end
+	
+	for i=1, #obstacles, 1 do
+		drawWireframe(coords[i],triangle.lines,triangle.colors)
+	end
+	
+	if keyDirect(key.exit)>0 then exit=1 end
+	frame = frame+1
+end

@@ -1,0 +1,59 @@
+FFISCH'S 3D LIB V.0.1b
+by TakeFlight Prod. (flyingfisch), 2012
+
+Licensed under the CC share-alike license
+
+
+==Contents==
+[1] For Developers
+   1.1 Usage
+   1.2 The Functions
+[2] Using the demo
+
+==For Developers==
+===Usage===
+To use this library simply copy and paste the code in ./src/src-full.lua into your program.
+
+===The Functions===
+ff3d.return3dPoint(point, angle, move, cam, scale, piv, pmode)
+Returns a 2d array {x,y} for a 3d array {x,y,z}.
+
+point - the 3d point data. Should be in this form:
+	point = {x=<x_pos>,y=<y_pos>,z=<z_pos>}
+angle - object rotation around point piv. Should be in this form:
+	angle = {x=<x angle>,y=<y angle>,z=<z angle>}
+move - move object relative to screen. this moves it as if it were on a piece of paper. Should be in this form:
+	move = {x=<move in x direction (relative to screen)>,y=<move in y direction (relative to screen)>}
+cam - camera placement. should be in this form:
+	cam = {x=<x_pos>,y=<y_pos>,z=<z_pos>}
+scale - scale factor (zoom). the larger the number, the further away the object appears.
+piv - pivot point. should be in form:
+	piv = {x=<x_pos>,y=<y_pos>,z=<z_pos>}
+pmode - perspective mode. if 1, then perspective mode is enabled, if not, then isometric mode is used.
+
+ff3d.drawWireframe(pointData,lineData,colorData)
+draws lines according to lineData.
+
+pointData - data for points. should be in this form:
+	pointData={{x1,y1},{x2,y2},{x3,y3}...}
+lineData - data for what points should be connected. the numbers correspond with the cells in pointData. for instance, this would connect points 1 and 2, and points 2 and 3.
+	lineData={{1,2},{2,3}}
+colorData - colors of lines. if empty, black is used. must have the same amount of cells as lineData. the following code would make lines 1 and 2 black:
+	colorData={makeColor("black"),makeColor("black")}
+	
+
+==Using the demo==
+Run in LuaZM.
+
+Keys:
+
+cursor keys: pan
+f1, f2: zoom in/out
+f3, f4: change z rotation
+f5, f6: change x rotation
+numpad 4,6,8,2: move camera
+optn: toggle perspective mode
+exit: exit program.
+
+
+

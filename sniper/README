@@ -1,0 +1,36 @@
+[ ]      [ ]  [ ][ ][ ]  [ ][ ][ ]  [ ]      [ ]
+[ ][ ]   [ ]  [ ]        [ ]   [ ]  [ ][ ]   [ ]
+[ ]   [ ][ ]  [ ][ ]     [ ]   [ ]  [ ]   [ ][ ]
+[ ]      [ ]  [ ]        [ ]   [ ]  [ ]      [ ]
+[ ]      [ ]  [ ][ ][ ]  [ ][ ][ ]  [ ]      [ ]
+FIGHTER - BLUE EDITION
+
+v. 0.10
+
+by TakeFlight Productions (flyingfisch)
+for Cemetech Contest #9
+
+README
+
+INSTALLATION
+Move nfblue.lua to your calculator's storage memory.
+
+USAGE
+Open with LuaZM (can be found here: http://www.cemetech.net/programs/index.php?mode=file&id=770)
+
+Press F1 for campaign, F2 for survival mode, and F3 for About screen.
+
+Controls:
+[shift] Shoot
+[alpha] Switch sights
+[arrows] move gun
+
+FOR DEVELOPERS
+Source code is in ./src/nfblue.lua
+
+I tried to make the code easy to read and well commented.
+
+Please note that I did not actually use the sprite in ./resources/. I used it as a reference (see lines 272-293 in nfblue.lua).
+
+LICENSE
+Code licensed under the CC Share-Alike License.

@@ -1,0 +1,17 @@
+[[README]]
+[[Chesstimer v1.1 beta]]
+by TakeFlight Productions (flyingfisch)
+http://casio.clrhome.org/
+
+Licensed under the CC share and share alike license
+http://creativecommons.org/licenses/by-sa/2.0/
+
+
+[[Installation]]
+
+Simply put it on your prizm.
+
+
+[[Usage]]
+
+Run with the LuaZM interpretor. Select the number of minutes you want the game to last with the up/down keys. Press [EXE]. When you are ready to start the game press [F1]. The two bars at the bottom give a large visualization of the time each player has left. When finished, press [exit].
